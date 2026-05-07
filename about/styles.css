@@ -1,0 +1,442 @@
+/* ===== GLOBAL RESET STYLES ===== */
+    /* Purpose: Preserve predictable sizing and remove browser default spacing */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== THEME VARIABLE STYLES ===== */
+    /* Purpose: Maintain the original clean visual system with coffee-shop color updates */
+    :root {
+      --bg: #fffaf3;
+      --surface: #ffffff;
+      --surface-warm: #fff3e4;
+      --text: #1d130c;
+      --sub: #6b5545;
+      --muted: #9a806e;
+      --border: #eadccd;
+      --step-border: #f0e3d6;
+      --callout-bg: #fff7ed;
+      --callout-border: #e7cdb3;
+      --accent: #8b4a24;
+      --accent-dark: #5f3219;
+      --accent-soft: #f6dfc8;
+      --btn-bg: #1d130c;
+      --btn-text: #ffffff;
+      --shadow: 0 24px 80px rgba(70, 40, 18, 0.12);
+    }
+
+    /* ===== DARK MODE THEME VARIABLE STYLES ===== */
+    /* Purpose: Respect system preferences while keeping coffee warmth and readability */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #120d09;
+        --surface: #1c1510;
+        --surface-warm: #241910;
+        --text: #fff7ef;
+        --sub: #d7c1ad;
+        --muted: #9f846d;
+        --border: #34281f;
+        --step-border: #2c2119;
+        --callout-bg: #21170f;
+        --callout-border: #3a2a20;
+        --accent: #d7995f;
+        --accent-dark: #f0bb83;
+        --accent-soft: #342418;
+        --btn-bg: #fff7ef;
+        --btn-text: #1d130c;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+      }
+    }
+
+    /* ===== BASE DOCUMENT STYLES ===== */
+    /* Purpose: Apply global typography, background, and smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ===== BODY LAYOUT STYLES ===== */
+    /* Purpose: Create a full-width responsive page while preserving the original Inter typeface */
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139, 74, 36, 0.14), transparent 34rem),
+        radial-gradient(circle at top right, rgba(246, 223, 200, 0.42), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      transition: background 0.2s, color 0.2s;
+      overflow-x: hidden;
+    }
+
+    /* ===== ACCESSIBILITY FOCUS STYLES ===== */
+    /* Purpose: Provide highly visible focus states for keyboard navigation */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* ===== SHARED CONTAINER STYLES ===== */
+    /* Purpose: Enforce safe mobile padding so text never touches viewport edges */
+    .page-container {
+      width: 100%;
+      max-width: 1180px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    /* ===== TABLET CONTAINER STYLES ===== */
+    /* Purpose: Increase horizontal spacing on tablet screens */
+    @media (min-width: 768px) {
+      .page-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+      }
+    }
+
+    /* ===== DESKTOP CONTAINER STYLES ===== */
+    /* Purpose: Increase horizontal spacing on desktop screens */
+    @media (min-width: 1024px) {
+      .page-container {
+        padding-left: 3rem;
+        padding-right: 3rem;
+      }
+    }
+
+    /* ===== LABEL STYLES ===== */
+    /* Purpose: Preserve the original small uppercase label treatment */
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    /* ===== HEADLINE STYLES ===== */
+    /* Purpose: Create prominent responsive headlines with safe line-height */
+    h1 {
+      font-size: clamp(2.45rem, 8vw, 5.5rem);
+      font-weight: 800;
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    /* ===== SECTION HEADING STYLES ===== */
+    /* Purpose: Improve scannability while keeping the original minimalist spirit */
+    h2 {
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.045em;
+      color: var(--text);
+      margin-bottom: 18px;
+    }
+
+    /* ===== SUBTEXT STYLES ===== */
+    /* Purpose: Preserve the original supporting copy style with warmer color values */
+    .sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--sub);
+      max-width: 680px;
+      margin-bottom: 32px;
+    }
+
+    /* ===== CTA BUTTON STYLES ===== */
+    /* Purpose: Preserve original CTA styling with interactive hover lift */
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 12px 30px rgba(29, 19, 12, 0.12);
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+
+    /* ===== CTA BUTTON HOVER STYLES ===== */
+    /* Purpose: Provide tactile feedback for pointer users */
+    .cta:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(29, 19, 12, 0.16);
+    }
+
+    /* ===== SECONDARY BUTTON STYLES ===== */
+    /* Purpose: Provide a lighter action style for secondary links */
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 22px;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s ease, background 0.15s ease;
+      border: 1px solid var(--border);
+      cursor: pointer;
+    }
+
+    /* ===== SECONDARY BUTTON HOVER STYLES ===== */
+    /* Purpose: Provide clear feedback for secondary actions */
+    .cta-secondary:hover {
+      transform: translateY(-2px);
+      background: var(--surface-warm);
+    }
+
+    /* ===== CARD STYLES ===== */
+    /* Purpose: Standardize rounded content cards across the about page */
+    .coffee-card {
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    /* ===== DARK MODE CARD STYLES ===== */
+    /* Purpose: Ensure cards remain readable in dark mode */
+    @media (prefers-color-scheme: dark) {
+      .coffee-card {
+        background: rgba(28, 21, 16, 0.78);
+      }
+    }
+
+    /* ===== NAVBAR GLASS STYLES ===== */
+    /* Purpose: Keep navigation visible while maintaining a premium editorial feel */
+    .navbar-shell {
+      background: rgba(255, 250, 243, 0.82);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(18px);
+    }
+
+    /* ===== DARK MODE NAVBAR STYLES ===== */
+    /* Purpose: Adapt translucent navigation for dark system preference */
+    @media (prefers-color-scheme: dark) {
+      .navbar-shell {
+        background: rgba(18, 13, 9, 0.82);
+      }
+    }
+
+    /* ===== MOBILE MENU STYLES ===== */
+    /* Purpose: Hide mobile navigation by default until the menu button is activated */
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ===== MOBILE MENU OPEN STYLES ===== */
+    /* Purpose: Reveal mobile navigation in a safe padded vertical layout */
+    .mobile-menu.is-open {
+      display: block;
+    }
+
+    /* ===== HERO IMAGE ORB STYLES ===== */
+    /* Purpose: Create a decorative coffee-inspired image frame without external assets */
+    .hero-orb {
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.24), transparent),
+        radial-gradient(circle at 35% 30%, #f4c58f 0, #bb7243 26%, #6a341c 55%, #26150d 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ===== HERO ORB PATTERN STYLES ===== */
+    /* Purpose: Add subtle steam and roast-like visual texture */
+    .hero-orb::before {
+      content: "";
+      position: absolute;
+      inset: 10%;
+      background:
+        radial-gradient(circle at 24% 30%, rgba(255, 255, 255, 0.38), transparent 16%),
+        radial-gradient(circle at 70% 62%, rgba(255, 228, 194, 0.32), transparent 18%),
+        linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.16) 43% 46%, transparent 47% 100%);
+      border-radius: 999px;
+      transform: rotate(-8deg);
+    }
+
+    /* ===== HERO ORB STEAM STYLES ===== */
+    /* Purpose: Add a simple animated steam accent above the coffee visual */
+    .hero-orb::after {
+      content: "";
+      position: absolute;
+      width: 42%;
+      height: 42%;
+      left: 29%;
+      top: -10%;
+      border-radius: 999px;
+      border: 2px solid rgba(255, 255, 255, 0.34);
+      border-left-color: transparent;
+      border-bottom-color: transparent;
+      animation: steamDrift 5s ease-in-out infinite;
+    }
+
+    /* ===== STEAM ANIMATION KEYFRAMES ===== */
+    /* Purpose: Animate decorative steam in the hero illustration */
+    @keyframes steamDrift {
+      0%, 100% {
+        transform: translateY(0) rotate(20deg);
+        opacity: 0.35;
+      }
+      50% {
+        transform: translateY(-14px) rotate(34deg);
+        opacity: 0.62;
+      }
+    }
+
+    /* ===== STAT NUMBER STYLES ===== */
+    /* Purpose: Make numerical proof points easy to scan */
+    .stat-number {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* ===== STEP CARD STYLES ===== */
+    /* Purpose: Preserve the original step layout and adapt it for coffee values */
+    .step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--step-border);
+    }
+
+    /* ===== FINAL STEP CARD STYLES ===== */
+    /* Purpose: Remove the divider from the last step item */
+    .step:last-child {
+      border-bottom: none;
+    }
+
+    /* ===== STEP NUMBER STYLES ===== */
+    /* Purpose: Keep compact numbered markers aligned with text */
+    .step-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      padding-top: 2px;
+    }
+
+    /* ===== STEP TITLE STYLES ===== */
+    /* Purpose: Emphasize value names within step cards */
+    .step-body strong {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* ===== STEP BODY COPY STYLES ===== */
+    /* Purpose: Ensure supporting text is readable and warm */
+    .step-body p {
+      font-size: 14px;
+      color: var(--sub);
+    }
+
+    /* ===== CALLOUT STYLES ===== */
+    /* Purpose: Preserve the original callout pattern for important coffee shop notes */
+    .callout {
+      background: var(--callout-bg);
+      border: 1px solid var(--callout-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 18px;
+      padding: 16px 18px;
+      margin-top: 28px;
+      font-size: 14px;
+      color: var(--sub);
+    }
+
+    /* ===== CALLOUT EMPHASIS STYLES ===== */
+    /* Purpose: Make key callout words easy to identify */
+    .callout strong {
+      color: var(--text);
+    }
+
+    /* ===== TEAM IMAGE PLACEHOLDER STYLES ===== */
+    /* Purpose: Create accessible staff portraits without relying on external photos */
+    .portrait-gradient {
+      background:
+        radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.5), transparent 18%),
+        linear-gradient(135deg, #f0bd84, #a15d33 45%, #2b180f);
+    }
+
+    /* ===== TESTIMONIAL QUOTE STYLES ===== */
+    /* Purpose: Style customer quotes with readable spacing and warm borders */
+    .quote-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 24px;
+      padding: 24px;
+    }
+
+    /* ===== FAQ ANSWER TRANSITION STYLES ===== */
+    /* Purpose: Smoothly reveal and hide FAQ content for interactive editing */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.25s ease;
+    }
+
+    /* ===== FAQ ACTIVE ANSWER STYLES ===== */
+    /* Purpose: Provide enough height for expanded FAQ answers */
+    .faq-item.is-open .faq-answer {
+      max-height: 220px;
+    }
+
+    /* ===== FORM FIELD STYLES ===== */
+    /* Purpose: Create accessible newsletter fields that match the coffee brand */
+    .form-field {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 16px;
+      padding: 14px 16px;
+      font-size: 15px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    /* ===== FORM FIELD PLACEHOLDER STYLES ===== */
+    /* Purpose: Keep placeholder text visible but understated */
+    .form-field::placeholder {
+      color: var(--muted);
+    }
+
+    /* ===== FORM FIELD FOCUS STYLES ===== */
+    /* Purpose: Provide clear focus indication on form inputs */
+    .form-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(139, 74, 36, 0.14);
+      outline: none;
+    }
+
+    /* ===== FOOTER STYLES ===== */
+    /* Purpose: Preserve simple footer typography with expanded about-page links */
+    footer {
+      font-size: 13px;
+      color: var(--muted);
+    }
