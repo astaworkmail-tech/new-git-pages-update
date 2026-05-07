@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/new-git-pages-update/">
+<!-- BASE:END -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="description" content="Learn the story behind Ember & Oak Coffee, a neighborhood coffee shop built around carefully sourced beans, warm hospitality, and everyday community." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+
+<!-- SEO Meta Tags -->
+<title>About us</title>
+<meta property="og:title" content="About us" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="About us" />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3817');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='z3hDZnXV';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top">
+
+  <!-- ============================================================================ -->
+  <!-- NAVBAR SECTION: Sticky page navigation for the coffee shop about page        -->
+  <!-- Features: Brand mark, anchor links, mobile menu toggle, accessible controls  -->
+  <!-- Mobile Padding: Uses px-4 py-4 so links never touch viewport edges           -->
+  <!-- ============================================================================ -->
+  <nav data-section="navbar" class="navbar-shell sticky top-0 z-50">
+    <div class="page-container px-4 py-4 md:px-8 lg:px-12">
+      <div class="flex items-center justify-between gap-4">
+        <a href="#top" class="flex items-center gap-3 text-[var(--text)] no-underline" aria-label="Ember & Oak Coffee about page top">
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--btn-bg)] text-sm font-extrabold text-[var(--btn-text)]">E&O</span>
+          <span class="leading-tight">
+            <span class="block text-sm font-extrabold tracking-tight">Ember & Oak</span>
+            <span class="block text-xs font-medium text-[var(--muted)]">Coffee House</span>
+          </span>
+        </a>
+
+        <div class="hidden items-center gap-6 md:flex" aria-label="Primary navigation">
+          <a href="#story" class="text-sm font-semibold text-[var(--sub)] transition hover:text-[var(--text)]">Our Story</a>
+          <a href="#values" class="text-sm font-semibold text-[var(--sub)] transition hover:text-[var(--text)]">Values</a>
+          <a href="#sourcing" class="text-sm font-semibold text-[var(--sub)] transition hover:text-[var(--text)]">Sourcing</a>
+          <a href="#team" class="text-sm font-semibold text-[var(--sub)] transition hover:text-[var(--text)]">Team</a>
+          <a href="#visit" class="cta !mb-0">Visit Us</a>
+        </div>
+
+        <button id="nav-menu-toggle" class="nav-menu-toggle inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] text-[var(--text)] md:hidden" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation menu">
+          <span class="text-xl leading-none">☰</span>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="mobile-menu pt-4 md:hidden">
+        <div class="grid gap-2 rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-4">
+          <a href="#story" class="rounded-2xl px-4 py-3 text-sm font-semibold text-[var(--sub)] hover:bg-[var(--surface-warm)] hover:text-[var(--text)]">Our Story</a>
+          <a href="#values" class="rounded-2xl px-4 py-3 text-sm font-semibold text-[var(--sub)] hover:bg-[var(--surface-warm)] hover:text-[var(--text)]">Values</a>
+          <a href="#sourcing" class="rounded-2xl px-4 py-3 text-sm font-semibold text-[var(--sub)] hover:bg-[var(--surface-warm)] hover:text-[var(--text)]">Sourcing</a>
+          <a href="#team" class="rounded-2xl px-4 py-3 text-sm font-semibold text-[var(--sub)] hover:bg-[var(--surface-warm)] hover:text-[var(--text)]">Team</a>
+          <a href="#visit" class="cta mt-2 !mb-0 w-full">Plan a Visit →</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================================ -->
+  <!-- HERO SECTION: Main about-page landing area with headline and primary CTA     -->
+  <!-- Features: Coffee-inspired illustration, proof points, warm editorial layout  -->
+  <!-- Mobile Padding: px-4 py-12 protects headline from clipping on small screens  -->
+  <!-- ============================================================================ -->
+  <section data-section="hero" class="hero-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-20 lg:px-12 lg:py-24">
+      <div class="grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-14">
+        <div>
+          <p class="label">About Ember & Oak · Neighborhood Coffee Since 2018</p>
+          <h1>Made slowly.<br />Served warmly.</h1>
+          <p class="sub">
+            Ember & Oak is a neighborhood coffee shop built for unhurried mornings, careful craft, and the familiar feeling of being welcomed by name.
+          </p>
+          <div class="flex flex-col gap-3 sm:flex-row">
+            <a class="cta cta-primary" href="#story">Read Our Story →</a>
+            <a class="cta-secondary" href="#visit">Hours & Location</a>
+          </div>
+
+          <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div class="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5">
+              <div class="stat-number">6</div>
+              <p class="mt-2 text-sm font-semibold text-[var(--sub)]">years of daily service</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5">
+              <div class="stat-number">14</div>
+              <p class="mt-2 text-sm font-semibold text-[var(--sub)]">rotating single origins</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] bg-[var(--surface)] p-5">
+              <div class="stat-number">1</div>
+              <p class="mt-2 text-sm font-semibold text-[var(--sub)]">very beloved corner shop</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="coffee-card p-4 md:p-6">
+          <div class="hero-orb aspect-square rounded-[2rem]"></div>
+          <div class="mt-5 grid gap-3 sm:grid-cols-2">
+            <div class="rounded-3xl bg-[var(--surface-warm)] p-5">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">House Favorite</p>
+              <p class="mt-2 text-lg font-extrabold leading-tight text-[var(--text)]">Brown sugar oat latte</p>
+            </div>
+            <div class="rounded-3xl bg-[var(--surface-warm)] p-5">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Roast Style</p>
+              <p class="mt-2 text-lg font-extrabold leading-tight text-[var(--text)]">Balanced, sweet, never rushed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- STORY SECTION: Origin story and mission of the coffee shop                   -->
+  <!-- Features: Editorial copy, founder note, timeline-style detail cards          -->
+  <!-- Mobile Padding: px-4 py-12 keeps paragraphs readable on narrow screens       -->
+  <!-- ============================================================================ -->
+  <section id="story" data-section="story" class="story-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-14">
+        <div>
+          <p class="label">Our Story</p>
+          <h2>A small shop with a long table.</h2>
+          <p class="sub">
+            We opened Ember & Oak with twelve seats, one espresso machine, and a simple belief: coffee tastes better when people feel cared for.
+          </p>
+          <div class="callout">
+            <strong>Our promise:</strong> every drink is prepared with attention, every pastry is chosen with intention, and every guest gets the kind of welcome that makes the day feel lighter.
+          </div>
+        </div>
+
+        <div class="coffee-card p-6 md:p-8">
+          <p class="text-base leading-8 text-[var(--sub)]">
+            The name Ember & Oak comes from the way we think about hospitality. Ember is warmth that lasts. Oak is something steady, familiar, and rooted. Together, they describe the space we try to create every day: a bright room where regulars gather, first-time visitors settle in quickly, and the pace of the neighborhood slows down for a few good minutes.
+          </p>
+          <p class="mt-5 text-base leading-8 text-[var(--sub)]">
+            Our founders started behind the bar, learning how small details change everything: water temperature, roast age, milk texture, the way a cup is handed across the counter. Today, that care still shapes our menu, our sourcing, our training, and the playlists humming in the background.
+          </p>
+
+          <div class="mt-8 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">2018</p>
+              <p class="mt-2 text-sm font-semibold text-[var(--text)]">Opened with a tiny bar and a big neighborhood welcome.</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">2021</p>
+              <p class="mt-2 text-sm font-semibold text-[var(--text)]">Expanded our bakery program with local makers.</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">2026</p>
+              <p class="mt-2 text-sm font-semibold text-[var(--text)]">Still serving every cup like it matters, because it does.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- VALUES SECTION: Shop principles presented with original step-style layout    -->
+  <!-- Features: Numbered values, concise explanations, warm callout                -->
+  <!-- Mobile Padding: px-4 py-12 prevents text from touching viewport edges        -->
+  <!-- ============================================================================ -->
+  <section id="values" data-section="values" class="values-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="coffee-card p-6 md:p-10">
+        <div class="mb-8 max-w-3xl">
+          <p class="label">What We Believe</p>
+          <h2>Good coffee is only half the work.</h2>
+          <p class="sub !mb-0">
+            Our bar is guided by a few everyday practices that keep the experience consistent, kind, and genuinely local.
+          </p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div>
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-body">
+                <strong>Hospitality first</strong>
+                <p>We train our team to notice people before orders, because the best coffee shop moments start with a genuine welcome.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-body">
+                <strong>Craft without ego</strong>
+                <p>We care deeply about extraction, roast profiles, and technique, but we explain everything in plain language.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-body">
+                <strong>Local partnerships</strong>
+                <p>Our pastry case, flowers, ceramics, and community boards are shaped by makers and neighbors close to home.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-body">
+                <strong>Seasonal curiosity</strong>
+                <p>We rotate coffees, syrups, and small menu specials so regulars always have something new to discover.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-body">
+                <strong>Responsible sourcing</strong>
+                <p>We prioritize roasters and importers who share transparent farm relationships and pay attention to long-term sustainability.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">6</div>
+              <div class="step-body">
+                <strong>Room for everyone</strong>
+                <p>Solo readers, laptop regulars, stroller crews, first dates, and post-shift friends all belong at our tables.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <strong>Little detail, big difference:</strong> We taste espresso throughout the day and adjust the grind as temperature, humidity, and roast age change.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- SOURCING SECTION: Coffee sourcing, roasting, and menu approach               -->
+  <!-- Features: Three-column education cards and seasonal menu notes               -->
+  <!-- Mobile Padding: px-4 py-12 keeps cards and headings safely inset             -->
+  <!-- ============================================================================ -->
+  <section id="sourcing" data-section="sourcing" class="sourcing-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="mb-10 max-w-3xl">
+        <p class="label">Coffee, Carefully Chosen</p>
+        <h2>We chase sweetness, balance, and clarity.</h2>
+        <p class="sub">
+          Our menu is built around coffees that are expressive but approachable: bright enough to be memorable, balanced enough to drink every day.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        <article class="coffee-card p-6">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-soft)] text-2xl" aria-hidden="true">☕</div>
+          <h3 class="text-xl font-extrabold tracking-tight text-[var(--text)]">Espresso with structure</h3>
+          <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+            Our house espresso is chosen for chocolate, caramel, and toasted nut notes that hold up beautifully with milk and shine on their own.
+          </p>
+        </article>
+
+        <article class="coffee-card p-6">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-soft)] text-2xl" aria-hidden="true">🌿</div>
+          <h3 class="text-xl font-extrabold tracking-tight text-[var(--text)]">Single origins in rotation</h3>
+          <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+            We feature rotating lots from small producers and cooperatives, highlighting fruit, florals, spice, and origin character.
+          </p>
+        </article>
+
+        <article class="coffee-card p-6">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--accent-soft)] text-2xl" aria-hidden="true">🥐</div>
+          <h3 class="text-xl font-extrabold tracking-tight text-[var(--text)]">Food that fits the cup</h3>
+          <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+            Our pastry partners bake in small batches, with buttery, savory, gluten-conscious, and plant-forward options on the board.
+          </p>
+        </article>
+      </div>
+
+      <div class="mt-8 grid gap-5 lg:grid-cols-[1fr_1fr]">
+        <div class="rounded-[28px] border border-[var(--border)] bg-[var(--surface-warm)] p-6 md:p-8">
+          <p class="label !mb-3">Current Notes</p>
+          <p class="text-2xl font-extrabold leading-tight tracking-tight text-[var(--text)]">Candied orange, cocoa nib, brown sugar, toasted almond.</p>
+        </div>
+        <div class="rounded-[28px] border border-[var(--border)] bg-[var(--surface)] p-6 md:p-8">
+          <p class="label !mb-3">Ask Us About</p>
+          <p class="text-2xl font-extrabold leading-tight tracking-tight text-[var(--text)]">Dialing in at home, choosing beans, and finding your favorite brew method.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- TEAM SECTION: Introduces the people behind the bar                           -->
+  <!-- Features: Staff cards, roles, personal notes, responsive grid                -->
+  <!-- Mobile Padding: px-4 py-12 ensures staff content remains readable            -->
+  <!-- ============================================================================ -->
+  <section id="team" data-section="team" class="team-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="mb-10 max-w-3xl">
+        <p class="label">Behind the Bar</p>
+        <h2>The people who know your order.</h2>
+        <p class="sub">
+          Our team is made of baristas, bakers, artists, students, parents, musicians, and morning people by necessity.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        <article class="coffee-card overflow-hidden">
+          <div class="portrait-gradient h-56" role="img" aria-label="Warm abstract portrait for Maya, founder and head barista"></div>
+          <div class="p-6">
+            <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Founder · Head Barista</p>
+            <h3 class="mt-2 text-2xl font-extrabold tracking-tight text-[var(--text)]">Maya Rivera</h3>
+            <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+              Maya opened Ember & Oak after years of coffee training and a lifelong habit of turning strangers into regulars.
+            </p>
+          </div>
+        </article>
+
+        <article class="coffee-card overflow-hidden">
+          <div class="portrait-gradient h-56" role="img" aria-label="Warm abstract portrait for Theo, roasting lead"></div>
+          <div class="p-6">
+            <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Roasting Lead</p>
+            <h3 class="mt-2 text-2xl font-extrabold tracking-tight text-[var(--text)]">Theo Bennett</h3>
+            <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+              Theo keeps our coffee program balanced, curious, and consistent from first dial-in to the last afternoon pour-over.
+            </p>
+          </div>
+        </article>
+
+        <article class="coffee-card overflow-hidden">
+          <div class="portrait-gradient h-56" role="img" aria-label="Warm abstract portrait for Lena, community host"></div>
+          <div class="p-6">
+            <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Community Host</p>
+            <h3 class="mt-2 text-2xl font-extrabold tracking-tight text-[var(--text)]">Lena Cho</h3>
+            <p class="mt-3 text-sm leading-7 text-[var(--sub)]">
+              Lena curates our local art wall, open-mic nights, donation drives, and the community board by the front door.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- COMMUNITY SECTION: Highlights neighborhood involvement and shop atmosphere   -->
+  <!-- Features: Community programs, accessible accordion FAQ interaction           -->
+  <!-- Mobile Padding: px-4 py-12 protects content and interactive controls         -->
+  <!-- ============================================================================ -->
+  <section data-section="community" class="community-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
+        <div class="coffee-card p-6 md:p-8">
+          <p class="label">In the Neighborhood</p>
+          <h2>More than a morning stop.</h2>
+          <p class="sub">
+            We use our little corner to make space for local creativity, mutual aid, and the small rituals that help a neighborhood feel like home.
+          </p>
+
+          <div class="grid gap-4">
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <h3 class="text-lg font-extrabold text-[var(--text)]">Local art wall</h3>
+              <p class="mt-2 text-sm leading-7 text-[var(--sub)]">A rotating monthly wall featuring artists within a few miles of the shop.</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <h3 class="text-lg font-extrabold text-[var(--text)]">Neighborhood table</h3>
+              <p class="mt-2 text-sm leading-7 text-[var(--sub)]">A large shared table reserved for conversation, reading, and low-pressure connection.</p>
+            </div>
+            <div class="rounded-3xl border border-[var(--border)] p-5">
+              <h3 class="text-lg font-extrabold text-[var(--text)]">Pay-it-forward board</h3>
+              <p class="mt-2 text-sm leading-7 text-[var(--sub)]">Guests can leave a coffee for someone who needs one, no questions asked.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="coffee-card p-6 md:p-8">
+          <p class="label">Common Questions</p>
+
+          <div class="faq-item border-b border-[var(--step-border)] py-4">
+            <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+              <span class="text-base font-extrabold text-[var(--text)]">Do you have space for working?</span>
+              <span class="text-xl text-[var(--accent)]" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="pt-3 text-sm leading-7 text-[var(--sub)]">Yes. We offer free Wi-Fi, several outlets, and a mix of small tables and bar seats. We keep the largest table laptop-free during weekend brunch hours so groups can gather.</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-[var(--step-border)] py-4">
+            <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+              <span class="text-base font-extrabold text-[var(--text)]">Are there non-dairy options?</span>
+              <span class="text-xl text-[var(--accent)]" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="pt-3 text-sm leading-7 text-[var(--sub)]">Absolutely. Oat milk is our most popular pairing, and we also keep almond milk available. Our team can recommend drinks that work especially well without dairy.</p>
+            </div>
+          </div>
+
+          <div class="faq-item border-b border-[var(--step-border)] py-4">
+            <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+              <span class="text-base font-extrabold text-[var(--text)]">Can I buy whole beans?</span>
+              <span class="text-xl text-[var(--accent)]" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="pt-3 text-sm leading-7 text-[var(--sub)]">Yes. We stock our house espresso, rotating filter coffees, and seasonal limited releases. Ask us to grind a bag for your home setup.</p>
+            </div>
+          </div>
+
+          <div class="faq-item py-4">
+            <button class="faq-toggle flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+              <span class="text-base font-extrabold text-[var(--text)]">Do you host private events?</span>
+              <span class="text-xl text-[var(--accent)]" aria-hidden="true">+</span>
+            </button>
+            <div class="faq-answer">
+              <p class="pt-3 text-sm leading-7 text-[var(--sub)]">We host small gatherings, cuppings, and community events after hours. Stop by the counter and tell us what you have in mind.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- TESTIMONIALS SECTION: Social proof from regulars and visitors                -->
+  <!-- Features: Quote cards, customer names, warm neighborhood credibility         -->
+  <!-- Mobile Padding: px-4 py-12 keeps quotes comfortably inset                    -->
+  <!-- ============================================================================ -->
+  <section data-section="testimonials" class="testimonials-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12">
+      <div class="mb-10 max-w-3xl">
+        <p class="label">What Regulars Say</p>
+        <h2>The kind words that keep us going.</h2>
+        <p class="sub">
+          We are grateful for every person who makes Ember & Oak part of their commute, walk, study session, catch-up, or quiet ritual.
+        </p>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        <figure class="quote-card">
+          <blockquote class="text-base leading-8 text-[var(--sub)]">
+            “The team remembers my name, my dog’s name, and exactly how much cinnamon I like. It feels like the living room of the neighborhood.”
+          </blockquote>
+          <figcaption class="mt-5 text-sm font-extrabold text-[var(--text)]">Ari M. · Morning regular</figcaption>
+        </figure>
+
+        <figure class="quote-card">
+          <blockquote class="text-base leading-8 text-[var(--sub)]">
+            “Their espresso is dialed in every time, but the best part is how welcoming the shop feels. Serious coffee without the attitude.”
+          </blockquote>
+          <figcaption class="mt-5 text-sm font-extrabold text-[var(--text)]">Jordan P. · Home brewer</figcaption>
+        </figure>
+
+        <figure class="quote-card">
+          <blockquote class="text-base leading-8 text-[var(--sub)]">
+            “I came in for a latte and ended up staying for two hours. The music, the light, the pastries — everything is thoughtful.”
+          </blockquote>
+          <figcaption class="mt-5 text-sm font-extrabold text-[var(--text)]">Nina S. · Weekend visitor</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- CTA SECTION: Visit information and newsletter signup                         -->
+  <!-- Features: Hours, location details, accessible newsletter form, success state  -->
+  <!-- Mobile Padding: px-4 py-12 ensures form fields never touch screen edges      -->
+  <!-- ============================================================================ -->
+  <section id="visit" data-section="cta" class="cta-section">
+    <div class="page-container px-4 py-12 md:px-8 md:py-16 lg:px-12 lg:pb-24">
+      <div class="coffee-card overflow-hidden">
+        <div class="grid gap-0 lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="p-6 md:p-10">
+            <p class="label">Come By Soon</p>
+            <h2>Your table is waiting.</h2>
+            <p class="sub">
+              Stop in for espresso, pour-over, seasonal drinks, fresh pastries, and a little room to breathe.
+            </p>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-3xl bg-[var(--surface-warm)] p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Hours</p>
+                <p class="mt-2 text-lg font-extrabold text-[var(--text)]">Mon–Fri · 7am–5pm</p>
+                <p class="text-lg font-extrabold text-[var(--text)]">Sat–Sun · 8am–4pm</p>
+              </div>
+              <div class="rounded-3xl bg-[var(--surface-warm)] p-5">
+                <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Find Us</p>
+                <p class="mt-2 text-lg font-extrabold leading-tight text-[var(--text)]">124 Maple Street<br />Old Town District</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="border-t border-[var(--border)] bg-[var(--surface-warm)] p-6 md:p-10 lg:border-l lg:border-t-0">
+            <p class="label">Stay in the Loop</p>
+            <h3 class="text-3xl font-extrabold leading-tight tracking-tight text-[var(--text)]">Seasonal drinks, events, and fresh bean drops.</h3>
+            <p class="mt-4 text-sm leading-7 text-[var(--sub)]">
+              Join our small newsletter for monthly notes from the shop. No spam, just good coffee news.
+            </p>
+
+            <form id="newsletter-form" class="mt-6 grid gap-3" aria-label="Coffee shop newsletter signup">
+              <label class="sr-only" for="newsletter-name">Full name</label>
+              <input id="newsletter-name" name="full_name" class="form-field" type="text" autocomplete="name" placeholder="Your name" />
+
+              <label class="sr-only" for="newsletter-email">Email address</label>
+              <input id="newsletter-email" name="email" class="form-field" type="email" autocomplete="email" placeholder="Email address" required />
+
+              <button class="cta cta-primary !mb-0 w-full" type="submit">Join the Newsletter →</button>
+
+              <p id="newsletter-message" class="hidden rounded-2xl border border-[var(--callout-border)] bg-[var(--callout-bg)] p-4 text-sm font-semibold text-[var(--text)]" role="status">
+                Thanks for joining. We will send the next shop note soon.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- FOOTER SECTION: Brand close, anchor links, copyright, and accessibility      -->
+  <!-- Features: Simple navigation, contact-style details, fixed 2026 footer year   -->
+  <!-- Mobile Padding: px-4 py-8 keeps footer content away from viewport edges      -->
+  <!-- ============================================================================ -->
+  <footer data-section="footer" class="footer-section border-t border-[var(--border)]">
+    <div class="page-container px-4 py-8 md:px-8 lg:px-12">
+      <div class="grid gap-8 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+        <div>
+          <a href="#top" class="flex items-center gap-3 text-[var(--text)] no-underline" aria-label="Ember & Oak Coffee page top">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--btn-bg)] text-sm font-extrabold text-[var(--btn-text)]">E&O</span>
+            <span class="leading-tight">
+              <span class="block text-sm font-extrabold tracking-tight">Ember & Oak Coffee House</span>
+              <span class="block text-xs font-medium text-[var(--muted)]">Made slowly. Served warmly.</span>
+            </span>
+          </a>
+          <p class="mt-5 max-w-sm text-sm leading-7 text-[var(--sub)]">
+            A neighborhood coffee shop serving carefully sourced coffee, seasonal drinks, fresh pastries, and everyday hospitality.
+          </p>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Explore</p>
+          <div class="mt-4 grid gap-2">
+            <a href="#story" class="text-sm font-semibold text-[var(--sub)] hover:text-[var(--text)]">Our Story</a>
+            <a href="#values" class="text-sm font-semibold text-[var(--sub)] hover:text-[var(--text)]">Values</a>
+            <a href="#sourcing" class="text-sm font-semibold text-[var(--sub)] hover:text-[var(--text)]">Sourcing</a>
+            <a href="#team" class="text-sm font-semibold text-[var(--sub)] hover:text-[var(--text)]">Team</a>
+          </div>
+        </div>
+
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.12em] text-[var(--muted)]">Visit</p>
+          <div class="mt-4 grid gap-2 text-sm font-semibold text-[var(--sub)]">
+            <p>124 Maple Street</p>
+            <p>Old Town District</p>
+            <p>Open daily</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col justify-between gap-4 border-t border-[var(--border)] pt-6 sm:flex-row">
+        <p>© 2026 Ember & Oak Coffee House. All rights reserved.</p>
+        <a href="#top" class="font-semibold text-[var(--sub)] hover:text-[var(--text)]">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
