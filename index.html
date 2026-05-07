@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/new-git-pages-update/">
+<!-- BASE:END -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="description" content="Ember & Bean Coffee House is a beautiful neighborhood café serving ethically sourced coffee, small-batch espresso, fresh pastries, and warm community moments every day." />
+  <meta name="theme-color" content="#3b2416" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  
+
+<!-- SEO Meta Tags -->
+<title>Landing Page - May 7, 2026</title>
+<meta property="og:title" content="Landing Page - May 7, 2026" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Landing Page - May 7, 2026" />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3816');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='qjAFjv';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-grain antialiased">
+  <!-- ============================================================================ -->
+  <!-- NAVBAR SECTION: Sticky navigation with brand mark, section links, and CTA    -->
+  <!-- Features: Responsive mobile menu, glass effect, accessible toggle controls   -->
+  <!-- Mobile Padding: px-4 ensures nav content never touches viewport edges        -->
+  <!-- ============================================================================ -->
+  <nav data-section="navbar" class="sticky top-0 z-50 px-4 py-4 sm:px-6 lg:px-8">
+    <div class="glass-card mx-auto flex max-w-7xl items-center justify-between rounded-full px-4 py-3 shadow-warm sm:px-5">
+      <a href="#home" class="flex items-center gap-3 rounded-full focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-latte" aria-label="Ember and Bean home">
+        <span class="flex h-11 w-11 items-center justify-center rounded-full bg-espresso text-lg font-bold text-latte shadow-glow">
+          E&B
+        </span>
+        <span class="hidden sm:block">
+          <span class="block font-display text-xl font-bold leading-none tracking-tight text-espresso">Ember & Bean</span>
+          <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-roast">Coffee House</span>
+        </span>
+      </a>
+
+      <div class="hidden items-center gap-7 lg:flex" aria-label="Primary navigation">
+        <a href="#story" class="text-sm font-semibold text-mocha transition hover:text-caramel">Our Story</a>
+        <a href="#menu" class="text-sm font-semibold text-mocha transition hover:text-caramel">Menu</a>
+        <a href="#experience" class="text-sm font-semibold text-mocha transition hover:text-caramel">Experience</a>
+        <a href="#reviews" class="text-sm font-semibold text-mocha transition hover:text-caramel">Reviews</a>
+        <a href="#visit" class="text-sm font-semibold text-mocha transition hover:text-caramel">Visit</a>
+      </div>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        <a href="#visit" class="rounded-full border border-mocha/15 px-5 py-2.5 text-sm font-bold text-espresso transition hover:border-caramel hover:text-caramel">
+          Reserve a Table
+        </a>
+        <a href="#menu" class="rounded-full bg-espresso px-5 py-2.5 text-sm font-bold text-latte shadow-glow transition hover:-translate-y-0.5 hover:bg-mocha">
+          Explore Menu
+        </a>
+      </div>
+
+      <button id="nav-menu-toggle" class="nav-menu-toggle inline-flex h-11 w-11 items-center justify-center rounded-full bg-espresso text-latte shadow-glow transition hover:bg-mocha focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-latte lg:hidden" type="button" aria-label="Open navigation menu" aria-controls="mobile-menu" aria-expanded="false">
+        <svg id="menu-open-icon" class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <svg id="menu-close-icon" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+
+    <div id="mobile-menu" class="mx-auto mt-3 hidden max-w-7xl rounded-3xl border border-mocha/10 bg-latte/95 p-4 shadow-warm lg:hidden">
+      <div class="grid gap-2">
+        <a href="#story" class="mobile-nav-link rounded-2xl px-4 py-3 text-sm font-bold text-espresso transition hover:bg-crema">Our Story</a>
+        <a href="#menu" class="mobile-nav-link rounded-2xl px-4 py-3 text-sm font-bold text-espresso transition hover:bg-crema">Menu</a>
+        <a href="#experience" class="mobile-nav-link rounded-2xl px-4 py-3 text-sm font-bold text-espresso transition hover:bg-crema">Experience</a>
+        <a href="#reviews" class="mobile-nav-link rounded-2xl px-4 py-3 text-sm font-bold text-espresso transition hover:bg-crema">Reviews</a>
+        <a href="#visit" class="mobile-nav-link rounded-2xl px-4 py-3 text-sm font-bold text-espresso transition hover:bg-crema">Visit</a>
+        <a href="#visit" class="mobile-nav-link mt-2 rounded-2xl bg-espresso px-4 py-3 text-center text-sm font-bold text-latte shadow-glow">Reserve a Table</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================================ -->
+  <!-- HERO SECTION: Main landing area with headline, subtext, and primary CTA      -->
+  <!-- Features: Warm gradient, animated coffee cup, proof cards, responsive layout -->
+  <!-- Mobile Padding: px-4 py-14 keeps h1 and CTAs away from screen edges          -->
+  <!-- ============================================================================ -->
+  <section id="home" data-section="hero" class="hero-section relative overflow-hidden px-4 py-14 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
+    <div class="absolute left-6 top-28 hidden h-16 w-10 rounded-full bg-caramel/25 floating-bean md:block" aria-hidden="true"></div>
+    <div class="absolute bottom-24 right-10 hidden h-20 w-12 rounded-full bg-roast/20 floating-bean floating-bean-delay md:block" aria-hidden="true"></div>
+
+    <div class="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+      <div class="reveal max-w-3xl">
+        <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-mocha/10 bg-latte/70 px-4 py-2 text-sm font-bold text-roast shadow-sm">
+          <span class="h-2.5 w-2.5 rounded-full bg-sage"></span>
+          Open daily · 7:00 AM — 7:00 PM
+        </div>
+
+        <h1 class="font-display text-5xl font-extrabold leading-[1.02] tracking-tight text-espresso sm:text-6xl md:text-7xl lg:text-8xl">
+          Coffee that feels like coming home.
+        </h1>
+
+        <p class="mt-6 max-w-2xl text-lg leading-8 text-mocha/80 sm:text-xl">
+          Welcome to Ember & Bean, a neighborhood coffee house serving ethically sourced espresso, flaky house-made pastries, and slow mornings worth savoring.
+        </p>
+
+        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href="#menu" class="cta-primary inline-flex items-center justify-center rounded-full bg-espresso px-7 py-4 text-base font-bold text-latte shadow-glow transition hover:-translate-y-1 hover:bg-mocha focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-latte">
+            See Today’s Menu
+            <svg class="ml-2 h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+          <a href="#visit" class="inline-flex items-center justify-center rounded-full border border-mocha/15 bg-latte/70 px-7 py-4 text-base font-bold text-espresso transition hover:-translate-y-1 hover:border-caramel hover:text-caramel focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-latte">
+            Plan Your Visit
+          </a>
+        </div>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-3">
+          <div class="rounded-3xl border border-mocha/10 bg-latte/65 p-5 shadow-sm">
+            <p class="font-display text-3xl font-bold text-espresso">4.9</p>
+            <p class="mt-1 text-sm font-medium text-mocha/70">Loved by local regulars</p>
+          </div>
+          <div class="rounded-3xl border border-mocha/10 bg-latte/65 p-5 shadow-sm">
+            <p class="font-display text-3xl font-bold text-espresso">18 hr</p>
+            <p class="mt-1 text-sm font-medium text-mocha/70">Cold brew steeped slow</p>
+          </div>
+          <div class="rounded-3xl border border-mocha/10 bg-latte/65 p-5 shadow-sm">
+            <p class="font-display text-3xl font-bold text-espresso">100%</p>
+            <p class="mt-1 text-sm font-medium text-mocha/70">Traceable coffee beans</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal relative mx-auto flex min-h-[420px] w-full max-w-lg items-center justify-center lg:min-h-[560px]">
+        <div class="absolute inset-8 rounded-full bg-caramel/20 blur-3xl" aria-hidden="true"></div>
+
+        <div class="coffee-cup" aria-label="Illustration of a warm cup of coffee">
+          <span class="steam steam-one" aria-hidden="true"></span>
+          <span class="steam steam-two" aria-hidden="true"></span>
+          <span class="steam steam-three" aria-hidden="true"></span>
+          <span class="coffee-surface" aria-hidden="true"></span>
+        </div>
+
+        <div class="absolute left-0 top-8 rounded-3xl border border-mocha/10 bg-latte/90 p-4 shadow-warm sm:left-4">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-roast">Today’s roast</p>
+          <p class="mt-1 font-display text-xl font-bold text-espresso">Honey Peru</p>
+          <p class="mt-1 text-sm text-mocha/70">Citrus · Almond · Cocoa</p>
+        </div>
+
+        <div class="absolute bottom-4 right-0 rounded-3xl border border-mocha/10 bg-latte/90 p-4 shadow-warm sm:right-4">
+          <p class="text-xs font-bold uppercase tracking-[0.22em] text-roast">Fresh batch</p>
+          <p class="mt-1 font-display text-xl font-bold text-espresso">Cardamom Buns</p>
+          <p class="mt-1 text-sm text-mocha/70">Out of the oven at 8 AM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- STORY SECTION: Brand introduction and values for the coffee shop             -->
+  <!-- Features: Editorial layout, value cards, origin and community messaging      -->
+  <!-- Mobile Padding: px-4 py-16 provides safe spacing on all mobile screens       -->
+  <!-- ============================================================================ -->
+  <section id="story" data-section="story" class="bg-latte px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div class="reveal">
+          <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Our Story</p>
+          <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-espresso sm:text-5xl">
+            Small-batch coffee, baked goods, and a table saved for you.
+          </h2>
+        </div>
+
+        <div class="reveal">
+          <p class="text-lg leading-8 text-mocha/78">
+            Ember & Bean began with one simple promise: make every cup feel personal. We partner with thoughtful growers, roast in small seasonal batches, and prepare each drink with care — from the first espresso pull to the final pour of silky microfoam.
+          </p>
+          <p class="mt-5 text-lg leading-8 text-mocha/78">
+            Whether you’re settling in with a laptop, meeting an old friend, or grabbing a quick cortado before work, our café is designed to be warm, welcoming, and deliciously unhurried.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-espresso text-latte">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 21s7-4.6 7-11a7 7 0 0 0-14 0c0 6.4 7 11 7 11Z" stroke="currentColor" stroke-width="2" />
+              <path d="M12 12.4a2.4 2.4 0 1 0 0-4.8 2.4 2.4 0 0 0 0 4.8Z" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-espresso">Ethically sourced</h3>
+          <p class="mt-3 leading-7 text-mocha/75">
+            We build lasting relationships with importers and farms committed to fair pricing, soil health, and exceptional flavor.
+          </p>
+        </article>
+
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-espresso text-latte">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 8h12v5a6 6 0 0 1-12 0V8Z" stroke="currentColor" stroke-width="2" />
+              <path d="M18 10h1a3 3 0 0 1 0 6h-1" stroke="currentColor" stroke-width="2" />
+              <path d="M8 3v2M12 3v2M16 3v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-espresso">Crafted to order</h3>
+          <p class="mt-3 leading-7 text-mocha/75">
+            Every drink is dialed in daily, weighed precisely, and finished by baristas who love the details.
+          </p>
+        </article>
+
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-espresso text-latte">
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM17 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM3 21a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4M13 21a4 4 0 0 1 4-4h0a4 4 0 0 1 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <h3 class="font-display text-2xl font-bold text-espresso">Community first</h3>
+          <p class="mt-3 leading-7 text-mocha/75">
+            Cozy corners, local art, open mic nights, and friendly faces make this more than a coffee stop.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- MENU SECTION: Interactive menu with category filtering and featured items    -->
+  <!-- Features: Filter buttons, rich item cards, prices, dietary indicators        -->
+  <!-- Mobile Padding: px-4 py-16 protects menu text and controls on small screens  -->
+  <!-- ============================================================================ -->
+  <section id="menu" data-section="menu" class="bg-espresso px-4 py-16 text-latte sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="reveal mx-auto max-w-3xl text-center">
+        <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Seasonal Menu</p>
+        <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-latte sm:text-5xl">
+          From first sip to final crumb.
+        </h2>
+        <p class="mt-5 text-lg leading-8 text-crema/78">
+          Our menu changes with the seasons, but the essentials stay the same: balanced espresso, comforting classics, and pastries baked before sunrise.
+        </p>
+      </div>
+
+      <div class="reveal mt-10 flex flex-wrap justify-center gap-3" role="tablist" aria-label="Menu categories">
+        <button class="menu-filter-button active rounded-full border border-latte/20 px-5 py-3 text-sm font-bold text-latte transition hover:border-caramel hover:text-caramel" type="button" data-filter="all" role="tab" aria-selected="true">
+          All Favorites
+        </button>
+        <button class="menu-filter-button rounded-full border border-latte/20 px-5 py-3 text-sm font-bold text-latte transition hover:border-caramel hover:text-caramel" type="button" data-filter="coffee" role="tab" aria-selected="false">
+          Coffee
+        </button>
+        <button class="menu-filter-button rounded-full border border-latte/20 px-5 py-3 text-sm font-bold text-latte transition hover:border-caramel hover:text-caramel" type="button" data-filter="pastry" role="tab" aria-selected="false">
+          Pastries
+        </button>
+        <button class="menu-filter-button rounded-full border border-latte/20 px-5 py-3 text-sm font-bold text-latte transition hover:border-caramel hover:text-caramel" type="button" data-filter="brunch" role="tab" aria-selected="false">
+          Brunch
+        </button>
+      </div>
+
+      <div class="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="coffee">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Signature</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Ember Latte</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$6</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Double espresso, maple-brown sugar, velvet milk, and a smoked cinnamon finish.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">House favorite</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Oat milk option</span>
+          </div>
+        </article>
+
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="coffee">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Slow Bar</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Single-Origin Pour Over</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$7</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Rotating micro-lot brewed by hand for clarity, sweetness, and delicate aromatics.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Rotating origin</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Vegan</span>
+          </div>
+        </article>
+
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="coffee">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Iced</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Velvet Cold Brew</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$5</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Steeped for 18 hours with notes of dark chocolate, toasted pecan, and orange peel.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Low acidity</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Dairy-free</span>
+          </div>
+        </article>
+
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="pastry">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Baked Daily</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Cardamom Morning Bun</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$5</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Laminated dough, citrus sugar, fragrant cardamom, and a glossy honey glaze.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Fresh at 8 AM</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Vegetarian</span>
+          </div>
+        </article>
+
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="pastry">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Sweet</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Brown Butter Cookie</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$4</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Crispy edges, chewy center, dark chocolate chunks, and a sprinkle of sea salt.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Best seller</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Pairs with espresso</span>
+          </div>
+        </article>
+
+        <article class="menu-item reveal rounded-[2rem] border border-latte/10 bg-latte/10 p-6 backdrop-blur transition hover:-translate-y-1 hover:bg-latte/15" data-category="brunch">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-caramel">Savory</p>
+              <h3 class="mt-2 font-display text-2xl font-bold text-latte">Avocado Toast</h3>
+            </div>
+            <p class="rounded-full bg-caramel px-3 py-1 text-sm font-extrabold text-espresso">$12</p>
+          </div>
+          <p class="mt-4 leading-7 text-crema/78">
+            Seeded sourdough, lemony avocado, pickled shallot, chili crisp, and herbs.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Vegetarian</span>
+            <span class="rounded-full bg-latte/10 px-3 py-1 text-xs font-bold text-crema">Add egg</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- EXPERIENCE SECTION: Café environment, amenities, and customer experience     -->
+  <!-- Features: Image-inspired gradient cards, amenity list, operating highlights  -->
+  <!-- Mobile Padding: px-4 py-16 prevents clipping and provides comfortable space  -->
+  <!-- ============================================================================ -->
+  <section id="experience" data-section="experience" class="bg-crema px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+      <div class="reveal">
+        <div class="relative overflow-hidden rounded-[2.5rem] bg-espresso p-6 shadow-warm">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(196,122,58,0.45),transparent_32%),radial-gradient(circle_at_78%_80%,rgba(125,139,102,0.34),transparent_30%)]" aria-hidden="true"></div>
+          <div class="relative grid min-h-[520px] content-between rounded-[2rem] border border-latte/15 p-6 sm:p-8">
+            <div>
+              <p class="inline-flex rounded-full bg-latte/15 px-4 py-2 text-sm font-bold text-crema backdrop-blur">
+                Cozy corners · Fast Wi‑Fi · Friendly baristas
+              </p>
+            </div>
+
+            <div class="max-w-md">
+              <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Inside the café</p>
+              <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-latte sm:text-5xl">
+                A warm place to pause, work, meet, or wander.
+              </h2>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="rounded-3xl bg-latte/12 p-4 backdrop-blur">
+                <p class="font-display text-3xl font-bold text-latte">32</p>
+                <p class="mt-1 text-sm text-crema/75">Seats inside</p>
+              </div>
+              <div class="rounded-3xl bg-latte/12 p-4 backdrop-blur">
+                <p class="font-display text-3xl font-bold text-latte">12</p>
+                <p class="mt-1 text-sm text-crema/75">Patio tables</p>
+              </div>
+              <div class="rounded-3xl bg-latte/12 p-4 backdrop-blur">
+                <p class="font-display text-3xl font-bold text-latte">2</p>
+                <p class="mt-1 text-sm text-crema/75">Weekly events</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">What to Expect</p>
+        <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-espresso sm:text-5xl">
+          Designed for slow mornings and bright ideas.
+        </h2>
+        <p class="mt-5 text-lg leading-8 text-mocha/78">
+          We obsess over the little details: warm lighting, comfortable seating, well-spaced tables, playlists that never shout, and staff who remember your usual.
+        </p>
+
+        <div class="mt-8 grid gap-4">
+          <div class="flex gap-4 rounded-3xl border border-mocha/10 bg-latte p-5 shadow-sm">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sage text-latte">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold text-espresso">Laptop-friendly weekday mornings</h3>
+              <p class="mt-1 leading-7 text-mocha/72">
+                Reliable Wi‑Fi, plenty of outlets, and quiet hours from 7 AM to 11 AM.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 rounded-3xl border border-mocha/10 bg-latte p-5 shadow-sm">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sage text-latte">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold text-espresso">Fresh pastries before sunrise</h3>
+              <p class="mt-1 leading-7 text-mocha/72">
+                Croissants, buns, cookies, and seasonal specials are baked in small batches every morning.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 rounded-3xl border border-mocha/10 bg-latte p-5 shadow-sm">
+            <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-sage text-latte">
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-bold text-espresso">Community nights after dark</h3>
+              <p class="mt-1 leading-7 text-mocha/72">
+                Join us for latte art workshops, local musicians, poetry readings, and tasting flights.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- TESTIMONIALS SECTION: Social proof from satisfied coffee shop customers      -->
+  <!-- Features: Review cards, ratings, customer quotes, warm editorial styling     -->
+  <!-- Mobile Padding: px-4 py-16 keeps quote cards readable on small viewports     -->
+  <!-- ============================================================================ -->
+  <section id="reviews" data-section="testimonials" class="bg-latte px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto max-w-7xl">
+      <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div class="max-w-2xl">
+          <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Local Love</p>
+          <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-espresso sm:text-5xl">
+            Regulars come for the coffee. They stay for the feeling.
+          </h2>
+        </div>
+        <div class="rounded-full bg-crema px-5 py-3 text-sm font-extrabold text-roast">
+          ★★★★★ 4.9 average rating
+        </div>
+      </div>
+
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="flex text-caramel" aria-label="Five-star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="mt-5 text-lg leading-8 text-mocha/80">
+            “The Ember Latte is genuinely perfect — cozy, not too sweet, and always beautifully made. This has become my morning ritual.”
+          </p>
+          <div class="mt-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-espresso font-bold text-latte">MR</div>
+            <div>
+              <p class="font-bold text-espresso">Maya R.</p>
+              <p class="text-sm text-mocha/60">Designer & daily regular</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="flex text-caramel" aria-label="Five-star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="mt-5 text-lg leading-8 text-mocha/80">
+            “Best pour over in town. The staff explains the flavor notes without making it feel intimidating. Warm, welcoming, excellent.”
+          </p>
+          <div class="mt-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-espresso font-bold text-latte">JL</div>
+            <div>
+              <p class="font-bold text-espresso">Jon L.</p>
+              <p class="text-sm text-mocha/60">Coffee enthusiast</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="reveal rounded-[2rem] border border-mocha/10 bg-crema p-7 shadow-sm">
+          <div class="flex text-caramel" aria-label="Five-star rating">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="mt-5 text-lg leading-8 text-mocha/80">
+            “I bring clients here because it feels calm and thoughtful. Also, the cardamom bun should win awards.”
+          </p>
+          <div class="mt-6 flex items-center gap-4">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-espresso font-bold text-latte">AS</div>
+            <div>
+              <p class="font-bold text-espresso">Ari S.</p>
+              <p class="text-sm text-mocha/60">Neighborhood founder</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- VISIT SECTION: Location details, hours, and reservation/contact form         -->
+  <!-- Features: Accessible form, store information, success message interaction    -->
+  <!-- Mobile Padding: px-4 py-16 ensures inputs and headings never touch edges     -->
+  <!-- ============================================================================ -->
+  <section id="visit" data-section="visit" class="bg-crema px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="reveal">
+        <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Visit Us</p>
+        <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-espresso sm:text-5xl">
+          Find your favorite seat.
+        </h2>
+        <p class="mt-5 text-lg leading-8 text-mocha/78">
+          Stop by for a quick espresso, stay for an afternoon, or reserve a cozy table for your next catch-up.
+        </p>
+
+        <div class="mt-8 grid gap-4">
+          <div class="rounded-3xl border border-mocha/10 bg-latte p-6 shadow-sm">
+            <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-roast">Address</p>
+            <p class="mt-2 font-display text-2xl font-bold text-espresso">1842 Willow Street</p>
+            <p class="mt-1 text-mocha/70">Downtown Arts District</p>
+          </div>
+
+          <div class="rounded-3xl border border-mocha/10 bg-latte p-6 shadow-sm">
+            <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-roast">Hours</p>
+            <div class="mt-3 grid gap-2 text-mocha/75">
+              <div class="flex justify-between gap-4">
+                <span>Monday — Friday</span>
+                <span class="font-bold text-espresso">7 AM — 7 PM</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span>Saturday</span>
+                <span class="font-bold text-espresso">8 AM — 8 PM</span>
+              </div>
+              <div class="flex justify-between gap-4">
+                <span>Sunday</span>
+                <span class="font-bold text-espresso">8 AM — 5 PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-3xl border border-mocha/10 bg-latte p-6 shadow-sm">
+            <p class="text-xs font-extrabold uppercase tracking-[0.24em] text-roast">Contact</p>
+            <p class="mt-2 text-mocha/75">
+              <a href="tel:+15550184722" class="font-bold text-espresso transition hover:text-caramel">(555) 018-4722</a>
+            </p>
+            <p class="mt-1 text-mocha/75">
+              <a href="mailto:hello@emberandbean.example" class="font-bold text-espresso transition hover:text-caramel">hello@emberandbean.example</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <form id="reservation-form" class="contact-form rounded-[2.5rem] border border-mocha/10 bg-latte p-6 shadow-warm sm:p-8" aria-label="Reserve a table form">
+          <div>
+            <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Reserve a Table</p>
+            <h3 class="mt-3 font-display text-3xl font-bold text-espresso sm:text-4xl">Save your spot</h3>
+            <p class="mt-3 leading-7 text-mocha/72">
+              Send us a note and we’ll confirm your table by text or email.
+            </p>
+          </div>
+
+          <div class="mt-8 grid gap-5 sm:grid-cols-2">
+            <div class="sm:col-span-2">
+              <label for="full-name" class="mb-2 block text-sm font-bold text-espresso">Full name</label>
+              <input id="full-name" name="full_name" type="text" required autocomplete="name" class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition placeholder:text-mocha/40 focus:border-caramel focus:ring-4 focus:ring-caramel/15" placeholder="Your name" />
+            </div>
+
+            <div>
+              <label for="email" class="mb-2 block text-sm font-bold text-espresso">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition placeholder:text-mocha/40 focus:border-caramel focus:ring-4 focus:ring-caramel/15" placeholder="you@example.com" />
+            </div>
+
+            <div>
+              <label for="phone" class="mb-2 block text-sm font-bold text-espresso">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition placeholder:text-mocha/40 focus:border-caramel focus:ring-4 focus:ring-caramel/15" placeholder="(555) 000-0000" />
+            </div>
+
+            <div>
+              <label for="date" class="mb-2 block text-sm font-bold text-espresso">Date</label>
+              <input id="date" name="date" type="date" required class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition focus:border-caramel focus:ring-4 focus:ring-caramel/15" />
+            </div>
+
+            <div>
+              <label for="party-size" class="mb-2 block text-sm font-bold text-espresso">Party size</label>
+              <select id="party-size" name="party_size" required class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition focus:border-caramel focus:ring-4 focus:ring-caramel/15">
+                <option value="">Select guests</option>
+                <option value="1">1 guest</option>
+                <option value="2">2 guests</option>
+                <option value="3">3 guests</option>
+                <option value="4">4 guests</option>
+                <option value="5">5 guests</option>
+                <option value="6+">6+ guests</option>
+              </select>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="message" class="mb-2 block text-sm font-bold text-espresso">Anything we should know?</label>
+              <textarea id="message" name="message" rows="4" class="w-full rounded-2xl border border-mocha/15 bg-crema px-4 py-3.5 text-espresso outline-none transition placeholder:text-mocha/40 focus:border-caramel focus:ring-4 focus:ring-caramel/15" placeholder="Preferred time, seating request, or special occasion"></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-espresso px-7 py-4 text-base font-bold text-latte shadow-glow transition hover:-translate-y-1 hover:bg-mocha focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-latte">
+            Request Reservation
+          </button>
+
+          <p id="reservation-success" class="mt-4 hidden rounded-2xl bg-sage/15 px-4 py-3 text-sm font-bold text-sage" role="status">
+            Thank you — we received your request and will confirm your table shortly.
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- FAQ SECTION: Common customer questions in an interactive accordion           -->
+  <!-- Features: Accessible buttons, expandable answers, concise visitor details    -->
+  <!-- Mobile Padding: px-4 py-16 keeps accordion content safely spaced             -->
+  <!-- ============================================================================ -->
+  <section id="faq" data-section="faq" class="bg-latte px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="mx-auto max-w-4xl">
+      <div class="reveal text-center">
+        <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Good to Know</p>
+        <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-espresso sm:text-5xl">
+          Before you stop by.
+        </h2>
+      </div>
+
+      <div class="mt-10 grid gap-4">
+        <div class="faq-item reveal rounded-3xl border border-mocha/10 bg-crema p-5">
+          <button class="faq-question flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+            <span class="font-display text-xl font-bold text-espresso">Do you have dairy-free milk options?</span>
+            <span class="faq-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-espresso text-latte transition">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p class="pt-4 leading-7 text-mocha/75">
+              Yes. We offer oat, almond, and coconut milk, and our baristas can recommend which option pairs best with your drink.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal rounded-3xl border border-mocha/10 bg-crema p-5">
+          <button class="faq-question flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+            <span class="font-display text-xl font-bold text-espresso">Can I work from the café?</span>
+            <span class="faq-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-espresso text-latte transition">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p class="pt-4 leading-7 text-mocha/75">
+              Absolutely. We have fast Wi‑Fi, accessible outlets, and weekday quiet hours from 7 AM to 11 AM for focused work.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal rounded-3xl border border-mocha/10 bg-crema p-5">
+          <button class="faq-question flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+            <span class="font-display text-xl font-bold text-espresso">Do you host private events?</span>
+            <span class="faq-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-espresso text-latte transition">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p class="pt-4 leading-7 text-mocha/75">
+              We do. The café is available for small gatherings, tastings, creative workshops, and community events outside peak hours.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item reveal rounded-3xl border border-mocha/10 bg-crema p-5">
+          <button class="faq-question flex w-full items-center justify-between gap-4 text-left" type="button" aria-expanded="false">
+            <span class="font-display text-xl font-bold text-espresso">Are your pastries made in-house?</span>
+            <span class="faq-icon flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-espresso text-latte transition">
+              <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+          <div class="faq-answer">
+            <p class="pt-4 leading-7 text-mocha/75">
+              Yes. Our pastry team bakes in small batches daily, with seasonal flavors rotating throughout the week.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- CTA SECTION: Final conversion area for menu exploration and reservations     -->
+  <!-- Features: Bold brand panel, two CTAs, warm gradient and concise messaging    -->
+  <!-- Mobile Padding: px-4 py-16 keeps final CTA readable on phones                -->
+  <!-- ============================================================================ -->
+  <section data-section="cta" class="bg-crema px-4 py-16 sm:px-6 md:px-8 lg:px-12 lg:py-24">
+    <div class="reveal mx-auto max-w-7xl overflow-hidden rounded-[2.5rem] bg-espresso p-6 shadow-warm sm:p-10 lg:p-14">
+      <div class="grid gap-10 lg:grid-cols-[1fr_0.75fr] lg:items-center">
+        <div>
+          <p class="text-sm font-extrabold uppercase tracking-[0.28em] text-caramel">Your cup is waiting</p>
+          <h2 class="mt-4 font-display text-4xl font-bold leading-tight text-latte sm:text-5xl lg:text-6xl">
+            Make today a little warmer.
+          </h2>
+          <p class="mt-5 max-w-2xl text-lg leading-8 text-crema/78">
+            Come in for your usual, try something seasonal, or bring a friend and make the café yours for the afternoon.
+          </p>
+        </div>
+
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <a href="#menu" class="inline-flex items-center justify-center rounded-full bg-caramel px-7 py-4 text-base font-extrabold text-espresso shadow-glow transition hover:-translate-y-1 hover:bg-crema focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-espresso">
+            Browse the Menu
+          </a>
+          <a href="#visit" class="inline-flex items-center justify-center rounded-full border border-latte/20 px-7 py-4 text-base font-extrabold text-latte transition hover:-translate-y-1 hover:border-caramel hover:text-caramel focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-espresso">
+            Reserve a Table
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- FOOTER SECTION: Brand footer with hours, contact information, and links      -->
+  <!-- Features: Accessible anchor links, contact details, copyright with 2026 year -->
+  <!-- Mobile Padding: px-4 py-10 keeps footer content away from screen edges       -->
+  <!-- ============================================================================ -->
+  <footer data-section="footer" class="bg-espresso px-4 py-10 text-crema sm:px-6 md:px-8 lg:px-12">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
+        <div>
+          <a href="#home" class="inline-flex items-center gap-3 rounded-full focus:outline-none focus:ring-2 focus:ring-caramel focus:ring-offset-2 focus:ring-offset-espresso" aria-label="Ember and Bean home">
+            <span class="flex h-11 w-11 items-center justify-center rounded-full bg-caramel text-lg font-bold text-espresso">E&B</span>
+            <span>
+              <span class="block font-display text-xl font-bold leading-none text-latte">Ember & Bean</span>
+              <span class="block text-xs font-semibold uppercase tracking-[0.22em] text-caramel">Coffee House</span>
+            </span>
+          </a>
+          <p class="mt-5 max-w-md leading-7 text-crema/70">
+            Artisan coffee, fresh pastries, and a cozy neighborhood space built for everyday rituals.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-latte">Explore</h3>
+          <div class="mt-4 grid gap-3">
+            <a href="#story" class="text-crema/70 transition hover:text-caramel">Our Story</a>
+            <a href="#menu" class="text-crema/70 transition hover:text-caramel">Menu</a>
+            <a href="#experience" class="text-crema/70 transition hover:text-caramel">Experience</a>
+            <a href="#visit" class="text-crema/70 transition hover:text-caramel">Visit</a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-display text-xl font-bold text-latte">Stop By</h3>
+          <div class="mt-4 grid gap-3 text-crema/70">
+            <p>1842 Willow Street</p>
+            <p>Daily coffee, fresh pastries, and seasonal brunch.</p>
+            <a href="tel:+15550184722" class="transition hover:text-caramel">(555) 018-4722</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-10 flex flex-col justify-between gap-4 border-t border-latte/10 pt-6 text-sm text-crema/55 sm:flex-row">
+        <p>© 2026 Ember & Bean Coffee House. All rights reserved.</p>
+        <p>Made with warmth, craft, and one more cup.</p>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
