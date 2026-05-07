@@ -1,0 +1,271 @@
+/* ===== GLOBAL RESET STYLES ===== */
+    /* Purpose: Keep spacing predictable across browsers while preserving accessibility */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ===== THEME VARIABLE STYLES ===== */
+    /* Purpose: Define the minimal coffee shop palette used throughout the contact page */
+    :root {
+      --bg: #fffaf3;
+      --surface: #ffffff;
+      --surface-soft: #fff3e4;
+      --text: #24160f;
+      --sub: #6f5b4d;
+      --muted: #9a7d68;
+      --border: #ead8c6;
+      --accent: #8b4f2f;
+      --accent-dark: #5f321f;
+      --btn-bg: #24160f;
+      --btn-text: #ffffff;
+      --success-bg: #edf8ef;
+      --success-text: #1f6b35;
+    }
+
+    /* ===== DARK MODE THEME STYLES ===== */
+    /* Purpose: Respect system dark mode while keeping warm coffee-inspired contrast */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #140f0c;
+        --surface: #1f1712;
+        --surface-soft: #2a1d15;
+        --text: #fff6ec;
+        --sub: #c9ad98;
+        --muted: #8f7462;
+        --border: #3a2a21;
+        --accent: #e0a06f;
+        --accent-dark: #f2c19a;
+        --btn-bg: #fff6ec;
+        --btn-text: #140f0c;
+        --success-bg: #163321;
+        --success-text: #9be2ae;
+      }
+    }
+
+    /* ===== BODY BASE STYLES ===== */
+    /* Purpose: Apply typography, page background, and safe mobile rendering */
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(139, 79, 47, 0.12), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      transition: background 0.2s ease, color 0.2s ease;
+      min-height: 100vh;
+    }
+
+    /* ===== FOCUS RING STYLES ===== */
+    /* Purpose: Provide visible keyboard navigation feedback */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible {
+      outline: 3px solid rgba(139, 79, 47, 0.45);
+      outline-offset: 3px;
+    }
+
+    /* ===== PAGE SHELL STYLES ===== */
+    /* Purpose: Preserve the original compact layout while improving responsive spacing */
+    .page-shell {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ===== SECTION CARD STYLES ===== */
+    /* Purpose: Create soft, editable content blocks for the coffee shop contact page */
+    .section-card {
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px solid var(--border);
+      box-shadow: 0 18px 50px rgba(95, 50, 31, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    /* ===== DARK SECTION CARD STYLES ===== */
+    /* Purpose: Adjust card backgrounds when dark mode is active */
+    @media (prefers-color-scheme: dark) {
+      .section-card {
+        background: rgba(31, 23, 18, 0.82);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+      }
+    }
+
+    /* ===== LABEL STYLES ===== */
+    /* Purpose: Maintain the original small uppercase label style */
+    .label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ===== HEADING STYLES ===== */
+    /* Purpose: Keep headlines bold, compact, and safely spaced on mobile */
+    h1,
+    h2,
+    h3 {
+      color: var(--text);
+      letter-spacing: -0.03em;
+    }
+
+    /* ===== HERO TITLE STYLES ===== */
+    /* Purpose: Provide responsive hero typography without clipping on mobile */
+    .hero-title {
+      font-size: clamp(2.35rem, 8vw, 4.25rem);
+      font-weight: 800;
+      line-height: 0.98;
+    }
+
+    /* ===== SECTION TITLE STYLES ===== */
+    /* Purpose: Style short contact page section headings */
+    .section-title {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 800;
+      line-height: 1.12;
+    }
+
+    /* ===== BODY COPY STYLES ===== */
+    /* Purpose: Provide consistent muted paragraph color */
+    .sub {
+      color: var(--sub);
+    }
+
+    /* ===== PRIMARY BUTTON STYLES ===== */
+    /* Purpose: Preserve the original simple CTA look with warm coffee colors */
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--btn-bg);
+      color: var(--btn-text);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0.78rem 1.15rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 12px 30px rgba(36, 22, 15, 0.16);
+    }
+
+    /* ===== PRIMARY BUTTON HOVER STYLES ===== */
+    /* Purpose: Add subtle movement for interactive feedback */
+    .cta-primary:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    /* ===== SECONDARY LINK BUTTON STYLES ===== */
+    /* Purpose: Style low-emphasis actions such as directions and phone links */
+    .cta-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      color: var(--accent-dark);
+      background: var(--surface-soft);
+      border: 1px solid var(--border);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      text-decoration: none;
+      transition: transform 0.15s ease, border-color 0.15s ease;
+    }
+
+    /* ===== SECONDARY LINK BUTTON HOVER STYLES ===== */
+    /* Purpose: Add tactile feedback for secondary actions */
+    .cta-secondary:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    /* ===== INFO ITEM STYLES ===== */
+    /* Purpose: Format quick contact details in a clean grid */
+    .info-item {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+
+    /* ===== FORM FIELD STYLES ===== */
+    /* Purpose: Make contact form fields easy to use on mobile and desktop */
+    .form-field {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 0.9rem;
+      padding: 0.85rem 0.95rem;
+      font-size: 15px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    /* ===== FORM FIELD PLACEHOLDER STYLES ===== */
+    /* Purpose: Keep placeholder text readable but visually secondary */
+    .form-field::placeholder {
+      color: var(--muted);
+    }
+
+    /* ===== FORM FIELD ACTIVE STYLES ===== */
+    /* Purpose: Highlight the current input for a clearer form experience */
+    .form-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(139, 79, 47, 0.12);
+    }
+
+    /* ===== STATUS MESSAGE STYLES ===== */
+    /* Purpose: Show a friendly success message after form submission */
+    .form-status {
+      display: none;
+      background: var(--success-bg);
+      color: var(--success-text);
+      border-radius: 0.9rem;
+      padding: 0.85rem 1rem;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* ===== STATUS MESSAGE VISIBLE STYLES ===== */
+    /* Purpose: Reveal the form confirmation when JavaScript adds the active class */
+    .form-status.is-visible {
+      display: block;
+    }
+
+    /* ===== DIVIDER STYLES ===== */
+    /* Purpose: Keep the original minimal divider feel between compact sections */
+    .soft-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ===== MOBILE MENU STYLES ===== */
+    /* Purpose: Hide mobile navigation links until toggled on small screens */
+    .mobile-menu {
+      display: none;
+    }
+
+    /* ===== MOBILE MENU OPEN STYLES ===== */
+    /* Purpose: Display stacked mobile links when the menu is open */
+    .mobile-menu.is-open {
+      display: grid;
+    }
+
+    /* ===== REDUCED MOTION STYLES ===== */
+    /* Purpose: Respect user preference for less animation */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
