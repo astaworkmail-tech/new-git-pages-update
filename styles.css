@@ -1,0 +1,234 @@
+/* ===== GLOBAL SCROLL BEHAVIOR ===== */
+    /* Enables smooth anchor navigation for one-page section links */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ===== BODY BASE STYLES ===== */
+    /* Applies brand background, readable text color, and page-wide typography */
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff8ef;
+      color: #2b1810;
+      overflow-x: hidden;
+    }
+
+    /* ===== DECORATIVE BACKGROUND GRAIN ===== */
+    /* Adds subtle café-inspired texture without affecting content readability */
+    .page-grain {
+      background-image:
+        radial-gradient(circle at 1px 1px, rgba(74, 44, 26, 0.08) 1px, transparent 0);
+      background-size: 28px 28px;
+    }
+
+    /* ===== HERO SECTION STYLES ===== */
+    /* Creates a warm layered gradient for the primary landing section */
+    .hero-section {
+      background:
+        radial-gradient(circle at 20% 20%, rgba(196, 122, 58, 0.28), transparent 28%),
+        radial-gradient(circle at 78% 18%, rgba(125, 139, 102, 0.2), transparent 26%),
+        linear-gradient(135deg, #fff8ef 0%, #f7ead7 52%, #ead0ad 100%);
+    }
+
+    /* ===== GLASS CARD EFFECT ===== */
+    /* Provides translucent card styling used for navigation, menus, and floating panels */
+    .glass-card {
+      background: rgba(255, 248, 239, 0.78);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(74, 44, 26, 0.12);
+    }
+
+    /* ===== COFFEE CUP ILLUSTRATION BASE ===== */
+    /* Builds a CSS coffee cup visual that scales responsively */
+    .coffee-cup {
+      position: relative;
+      width: min(72vw, 360px);
+      height: min(72vw, 360px);
+      border-radius: 44% 44% 50% 50%;
+      background:
+        linear-gradient(145deg, rgba(255, 255, 255, 0.7), rgba(247, 234, 215, 0.92)),
+        radial-gradient(circle at 50% 24%, #4a2c1a 0 28%, transparent 29%);
+      box-shadow:
+        inset 0 -22px 44px rgba(74, 44, 26, 0.12),
+        0 32px 90px rgba(43, 24, 16, 0.22);
+    }
+
+    /* ===== COFFEE CUP HANDLE ===== */
+    /* Adds a decorative handle to the CSS coffee cup */
+    .coffee-cup::after {
+      content: "";
+      position: absolute;
+      right: -54px;
+      top: 92px;
+      width: 104px;
+      height: 118px;
+      border: 22px solid rgba(247, 234, 215, 0.92);
+      border-left: 0;
+      border-radius: 0 70px 70px 0;
+      filter: drop-shadow(12px 18px 24px rgba(43, 24, 16, 0.12));
+    }
+
+    /* ===== COFFEE SURFACE ===== */
+    /* Creates the espresso surface inside the cup */
+    .coffee-surface {
+      position: absolute;
+      inset: 42px 42px auto 42px;
+      height: 130px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 38%, rgba(247, 234, 215, 0.38) 0 12%, transparent 13%),
+        radial-gradient(circle at 62% 44%, rgba(196, 122, 58, 0.46) 0 16%, transparent 17%),
+        linear-gradient(135deg, #2b1810, #7a4424);
+      box-shadow: inset 0 8px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    /* ===== STEAM ANIMATION ELEMENTS ===== */
+    /* Positions animated steam wisps above the coffee cup */
+    .steam {
+      position: absolute;
+      top: -42px;
+      width: 16px;
+      height: 92px;
+      border-radius: 999px;
+      background: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 248, 239, 0.9), rgba(255, 255, 255, 0));
+      filter: blur(5px);
+      animation: steamRise 3.4s ease-in-out infinite;
+      opacity: 0.74;
+    }
+
+    /* ===== STEAM POSITION VARIANT ONE ===== */
+    /* Places the first steam wisp and staggers animation timing */
+    .steam-one {
+      left: 34%;
+      animation-delay: 0s;
+    }
+
+    /* ===== STEAM POSITION VARIANT TWO ===== */
+    /* Places the second steam wisp and staggers animation timing */
+    .steam-two {
+      left: 49%;
+      animation-delay: 0.75s;
+    }
+
+    /* ===== STEAM POSITION VARIANT THREE ===== */
+    /* Places the third steam wisp and staggers animation timing */
+    .steam-three {
+      left: 64%;
+      animation-delay: 1.35s;
+    }
+
+    /* ===== STEAM RISE KEYFRAMES ===== */
+    /* Animates coffee steam with gentle vertical motion and opacity changes */
+    @keyframes steamRise {
+      0% {
+        transform: translateY(16px) scaleX(0.72);
+        opacity: 0;
+      }
+      35% {
+        opacity: 0.78;
+      }
+      100% {
+        transform: translateY(-26px) scaleX(1.16);
+        opacity: 0;
+      }
+    }
+
+    /* ===== FLOATING BEAN ANIMATION ===== */
+    /* Adds subtle motion to decorative coffee bean shapes */
+    .floating-bean {
+      animation: floatBean 6s ease-in-out infinite;
+    }
+
+    /* ===== FLOATING BEAN DELAY VARIANT ===== */
+    /* Staggers floating animation for a more organic visual rhythm */
+    .floating-bean-delay {
+      animation-delay: 1.8s;
+    }
+
+    /* ===== FLOATING BEAN KEYFRAMES ===== */
+    /* Moves coffee beans gently up and down */
+    @keyframes floatBean {
+      0%, 100% {
+        transform: translateY(0) rotate(12deg);
+      }
+      50% {
+        transform: translateY(-16px) rotate(-4deg);
+      }
+    }
+
+    /* ===== SECTION REVEAL ANIMATION ===== */
+    /* Provides a polished fade-in effect when sections enter the viewport */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    /* ===== SECTION REVEAL ACTIVE STATE ===== */
+    /* Displays revealed content after intersection observer triggers */
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== MENU FILTER BUTTON ACTIVE STATE ===== */
+    /* Highlights the selected menu category button */
+    .menu-filter-button.active {
+      background: #2b1810;
+      color: #fff8ef;
+      border-color: #2b1810;
+      box-shadow: 0 14px 34px rgba(43, 24, 16, 0.18);
+    }
+
+    /* ===== FAQ CONTENT TRANSITION ===== */
+    /* Smoothly expands and collapses FAQ answer content */
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    /* ===== FAQ CONTENT OPEN STATE ===== */
+    /* Provides spacing and enough height for expanded answers */
+    .faq-item.open .faq-answer {
+      max-height: 220px;
+    }
+
+    /* ===== FAQ ICON ROTATION ===== */
+    /* Rotates FAQ icons when accordion items are opened */
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* ===== REDUCED MOTION ACCESSIBILITY ===== */
+    /* Disables non-essential animations for users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .steam,
+      .floating-bean,
+      .reveal {
+        animation: none;
+        transition: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* ===== MOBILE COFFEE CUP HANDLE ADJUSTMENT ===== */
+    /* Keeps the decorative cup fully visible on narrow screens */
+    @media (max-width: 640px) {
+      .coffee-cup::after {
+        right: -28px;
+        top: 76px;
+        width: 72px;
+        height: 92px;
+        border-width: 16px;
+      }
+    }
