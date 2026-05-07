@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- BASE:START (managed by Coding Agent — do not edit) -->
+<base href="/new-git-pages-update/">
+<!-- BASE:END -->
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <meta name="description" content="Contact Bean & Bloom Coffee for hours, location, catering, private events, and friendly neighborhood coffee shop support." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+
+<!-- SEO Meta Tags -->
+<title>Contact</title>
+<meta property="og:title" content="Contact" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Contact" />
+<!-- End SEO Meta Tags -->
+
+<script data-field-replace>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var fields={};
+  var paramMap={
+    'first_name':'firstName','last_name':'lastName','full_name':'fullName',
+    'email':'email','phone':'phone','company':'company',
+    'city':'city','state':'state','country':'country'
+  };
+  var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};
+  var hasUrlFields=false;
+  for(var p in paramMap){
+    var v=params.get(p);
+    if(v){fields[paramMap[p]]=v;hasUrlFields=true;}
+  }
+  var contactId=params.get('contact_id');
+  function esc(s){
+    if(!s)return s;
+    var d=document.createElement('div');
+    d.appendChild(document.createTextNode(s));
+    return d.innerHTML;
+  }
+  function doReplace(data){
+    var r={};
+    r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));
+    r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');
+    r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');
+    r['{{email}}']=esc(data.email||'');
+    r['{{phone}}']=esc(data.phone||'');
+    r['{{company}}']=esc(data.company||'');
+    r['{{city}}']=esc(data.city||'');
+    r['{{state}}']=esc(data.state||'');
+    r['{{country}}']=esc(data.country||'');
+    r['{{date}}']=new Date().toLocaleDateString();
+    r['{{time}}']=new Date().toLocaleTimeString();
+    r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
+    r['{{tracking_id}}']=esc(data.trackingId||'');
+    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
+    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
+    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
+    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
+    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
+    r['{{ip_address}}']=esc(data.ipAddress||'');
+    r['{{ip}}']=esc(data.ipAddress||'');
+    if(data.customFields){
+      for(var k in data.customFields){
+        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
+      }
+    }
+    params.forEach(function(v,k){
+      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
+        r['{{'+k+'}}']=esc(v);
+      }
+    });
+    var hasValues=false;
+    for(var key in r){if(r[key]){hasValues=true;break;}}
+    if(!hasValues)return;
+    var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{
+      acceptNode:function(n){
+        var p=n.parentNode;
+        if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    var node;
+    while(node=walker.nextNode()){
+      var txt=node.nodeValue;
+      if(txt&&txt.indexOf('{{')>-1){
+        var changed=txt;
+        for(var ph in r){
+          if(r[ph]&&changed.indexOf(ph)>-1){
+            changed=changed.split(ph).join(r[ph]);
+          }
+        }
+        if(changed!==txt)node.nodeValue=changed;
+      }
+    }
+    var attrs=['value','placeholder','content','alt','title'];
+    attrs.forEach(function(attr){
+      var els=document.querySelectorAll('['+attr+'*="{{"]');
+      for(var i=0;i<els.length;i++){
+        var tag=els[i].tagName;
+        if(skipTags[tag])continue;
+        var val=els[i].getAttribute(attr);
+        if(val){
+          var nv=val;
+          for(var ph in r){
+            if(r[ph]&&nv.indexOf(ph)>-1){
+              nv=nv.split(ph).join(r[ph]);
+            }
+          }
+          if(nv!==val)els[i].setAttribute(attr,nv);
+        }
+      }
+    });
+  }
+  function run(){
+    if(contactId){
+      var xhr=new XMLHttpRequest();
+      xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=3818');
+      xhr.onload=function(){
+        if(xhr.status===200){
+          try{
+            var resp=JSON.parse(xhr.responseText);
+            if(resp.success&&resp.contact){
+              var merged=resp.contact;
+              for(var k in fields){merged[k]=fields[k];}
+              doReplace(merged);
+              return;
+            }
+          }catch(e){}
+        }
+        if(hasUrlFields)doReplace(fields);
+      };
+      xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};
+      xhr.send();
+    }else if(hasUrlFields){
+      doReplace(fields);
+    }
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}
+  else{run();}
+})();
+</script>
+<script data-payment>
+(function(){
+  var slug='ZNNyeaPpB';
+  var apiBase='https://paymegpt.com';
+  function findEmail(){
+    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
+    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
+    return '';
+  }
+  function findName(){
+    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
+    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
+    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
+    return '';
+  }
+  var __realProcessPayment=function(a,b,c,d,e){
+    var amountCents,email,productName,productDescription,customerName,quantity;
+    if(a&&typeof a==='object'){
+      amountCents=a.amountCents;email=a.email;productName=a.productName;
+      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
+    }else{
+      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
+      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
+    }
+    if(!email)email=findEmail();
+    if(!customerName)customerName=findName();
+    if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
+    if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
+    if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
+    var successBase=window.location.href.split('?')[0];
+    return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
+    });
+  };
+  Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
+  document.addEventListener('DOMContentLoaded',function(){
+    var urlParams=new URLSearchParams(window.location.search);
+    if(urlParams.get('payment')==='success'){
+      var pName=urlParams.get('product')||'your item';
+      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
+      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
+      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
+      document.body.appendChild(overlay);
+    }
+  });
+})();
+</script>  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ============================================================================ -->
+  <!-- NAVBAR SECTION: Simple contact page navigation for the coffee shop           -->
+  <!-- Features: Brand name, anchor links, mobile menu toggle, accessible labels    -->
+  <!-- Mobile Padding: px-4 py-4 ensures links never touch viewport edges           -->
+  <!-- ============================================================================ -->
+  <nav data-section="navbar" class="px-4 py-4 sm:px-6 md:px-8">
+    <div class="page-shell flex items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3 text-sm font-extrabold tracking-tight no-underline" aria-label="Bean and Bloom Coffee contact page top">
+        <span class="flex h-9 w-9 items-center justify-center rounded-full" style="background: var(--btn-bg); color: var(--btn-text);">☕</span>
+        <span>Bean &amp; Bloom</span>
+      </a>
+
+      <div class="hidden items-center gap-5 text-sm font-semibold sm:flex">
+        <a href="#contact" class="sub hover:underline">Contact</a>
+        <a href="#hours" class="sub hover:underline">Hours</a>
+        <a href="#visit" class="sub hover:underline">Visit</a>
+      </div>
+
+      <button id="navMenuToggle" class="nav-menu-toggle rounded-full border px-3 py-2 text-sm font-bold sm:hidden" style="border-color: var(--border);" type="button" aria-expanded="false" aria-controls="mobileMenu">
+        Menu
+      </button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-menu page-shell mt-3 gap-2 rounded-2xl border p-3 sm:hidden" style="border-color: var(--border); background: var(--surface);">
+      <a href="#contact" class="rounded-xl px-3 py-2 text-sm font-semibold no-underline sub">Contact</a>
+      <a href="#hours" class="rounded-xl px-3 py-2 text-sm font-semibold no-underline sub">Hours</a>
+      <a href="#visit" class="rounded-xl px-3 py-2 text-sm font-semibold no-underline sub">Visit</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================================ -->
+  <!-- HERO SECTION: Short and friendly coffee shop contact introduction            -->
+  <!-- Features: Clear headline, direct CTAs, warm minimalist design                -->
+  <!-- Mobile Padding: px-4 py-8 keeps headline safely away from screen edges       -->
+  <!-- ============================================================================ -->
+  <section id="top" data-section="hero" class="px-4 py-8 sm:px-6 md:px-8 md:py-12">
+    <div class="page-shell">
+      <p class="label mb-5">Coffee Shop · Contact</p>
+
+      <h1 class="hero-title mb-5">
+        Say hello.<br />
+        We’ll save you a seat.
+      </h1>
+
+      <p class="sub max-w-xl text-base sm:text-lg">
+        Have a question about today’s menu, catering, lost items, or a private coffee cart? Send us a note or call the shop.
+      </p>
+
+      <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+        <a class="cta-primary" href="tel:+15550148632">Call the shop →</a>
+        <a class="cta-secondary" href="mailto:hello@beanandbloom.coffee">Email us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- QUICK CONTACT SECTION: Essential shop details in easy-to-scan cards          -->
+  <!-- Features: Phone, email, address, quick response expectations                 -->
+  <!-- Mobile Padding: px-4 py-6 prevents cards and copy from touching edges        -->
+  <!-- ============================================================================ -->
+  <section data-section="contact-info" class="px-4 py-6 sm:px-6 md:px-8">
+    <div class="page-shell">
+      <hr class="soft-divider mb-6" />
+
+      <div class="grid gap-3 sm:grid-cols-2">
+        <article class="info-item">
+          <p class="label mb-2">Phone</p>
+          <a href="tel:+15550148632" class="text-lg font-extrabold no-underline hover:underline">(555) 014-8632</a>
+          <p class="sub mt-1 text-sm">Best for quick questions and same-day orders.</p>
+        </article>
+
+        <article class="info-item">
+          <p class="label mb-2">Email</p>
+          <a href="mailto:hello@beanandbloom.coffee" class="text-lg font-extrabold no-underline hover:underline">hello@beanandbloom.coffee</a>
+          <p class="sub mt-1 text-sm">We usually reply within one business day.</p>
+        </article>
+
+        <article class="info-item">
+          <p class="label mb-2">Address</p>
+          <p class="text-lg font-extrabold">128 Market Lane</p>
+          <p class="sub mt-1 text-sm">Downtown, Suite 4 · Next to the flower stand.</p>
+        </article>
+
+        <article class="info-item">
+          <p class="label mb-2">Good for</p>
+          <p class="text-lg font-extrabold">Coffee, pastries, catering</p>
+          <p class="sub mt-1 text-sm">Ask about office boxes and weekend events.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- CONTACT FORM SECTION: Simple message form for coffee shop inquiries          -->
+  <!-- Features: Name, email, topic, message, JavaScript success confirmation       -->
+  <!-- Mobile Padding: px-4 py-6 and spacious fields improve mobile completion     -->
+  <!-- ============================================================================ -->
+  <section id="contact" data-section="contact-form" class="px-4 py-6 sm:px-6 md:px-8">
+    <div class="page-shell section-card rounded-3xl p-4 sm:p-6 md:p-8">
+      <div class="mb-6">
+        <p class="label mb-3">Send a message</p>
+        <h2 class="section-title">What can we help with?</h2>
+        <p class="sub mt-3">
+          Keep it short if you like. We’ll get back to you as soon as the espresso rush slows down.
+        </p>
+      </div>
+
+      <form id="contactForm" class="contact-form grid gap-4" aria-describedby="formStatus">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <label class="grid gap-2 text-sm font-bold" for="fullName">
+            Your name
+            <input id="fullName" name="full_name" class="form-field" type="text" autocomplete="name" placeholder="Alex Morgan" required />
+          </label>
+
+          <label class="grid gap-2 text-sm font-bold" for="email">
+            Email
+            <input id="email" name="email" class="form-field" type="email" autocomplete="email" placeholder="alex@example.com" required />
+          </label>
+        </div>
+
+        <label class="grid gap-2 text-sm font-bold" for="topic">
+          Topic
+          <select id="topic" name="topic" class="form-field" required>
+            <option value="">Choose one</option>
+            <option value="General question">General question</option>
+            <option value="Catering">Catering</option>
+            <option value="Private event">Private event</option>
+            <option value="Lost item">Lost item</option>
+          </select>
+        </label>
+
+        <label class="grid gap-2 text-sm font-bold" for="message">
+          Message
+          <textarea id="message" name="message" class="form-field min-h-32 resize-y" placeholder="Tell us what you need..." required></textarea>
+        </label>
+
+        <div id="formStatus" class="form-status" role="status" aria-live="polite">
+          Thanks! Your message is ready. Please send it through your email app.
+        </div>
+
+        <button class="cta-primary w-full sm:w-fit" type="submit">
+          Send message →
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- HOURS SECTION: Compact operating hours for customers planning a visit        -->
+  <!-- Features: Daily hours, pickup note, friendly service reminder                -->
+  <!-- Mobile Padding: px-4 py-6 keeps the schedule readable on small screens      -->
+  <!-- ============================================================================ -->
+  <section id="hours" data-section="hours" class="px-4 py-6 sm:px-6 md:px-8">
+    <div class="page-shell">
+      <hr class="soft-divider mb-6" />
+
+      <div class="grid gap-5 md:grid-cols-[1fr_1.25fr] md:items-start">
+        <div>
+          <p class="label mb-3">Hours</p>
+          <h2 class="section-title">Open daily for cozy cups.</h2>
+          <p class="sub mt-3">
+            Kitchen closes 30 minutes before the cafe. Seasonal specials change every Friday.
+          </p>
+        </div>
+
+        <div class="section-card rounded-3xl p-4 sm:p-6">
+          <dl class="grid gap-3 text-sm">
+            <div class="flex items-center justify-between gap-4 border-b pb-3" style="border-color: var(--border);">
+              <dt class="font-bold">Monday – Friday</dt>
+              <dd class="sub text-right">7:00 AM – 5:00 PM</dd>
+            </div>
+
+            <div class="flex items-center justify-between gap-4 border-b pb-3" style="border-color: var(--border);">
+              <dt class="font-bold">Saturday</dt>
+              <dd class="sub text-right">8:00 AM – 4:00 PM</dd>
+            </div>
+
+            <div class="flex items-center justify-between gap-4">
+              <dt class="font-bold">Sunday</dt>
+              <dd class="sub text-right">8:00 AM – 2:00 PM</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- VISIT SECTION: Simple location information and directions CTA                -->
+  <!-- Features: Address, parking note, map-style visual card, external map link    -->
+  <!-- Mobile Padding: px-4 py-6 preserves comfortable reading space on phones     -->
+  <!-- ============================================================================ -->
+  <section id="visit" data-section="visit" class="px-4 py-6 sm:px-6 md:px-8">
+    <div class="page-shell">
+      <div class="section-card overflow-hidden rounded-3xl">
+        <div class="grid gap-0 md:grid-cols-2">
+          <div class="p-4 sm:p-6 md:p-8">
+            <p class="label mb-3">Visit us</p>
+            <h2 class="section-title">128 Market Lane</h2>
+            <p class="sub mt-3">
+              Find us on the sunny corner by the flower stand. Street parking is easiest before 9 AM and after 2 PM.
+            </p>
+
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row md:flex-col lg:flex-row">
+              <a class="cta-primary" href="https://www.google.com/maps/search/?api=1&query=128%20Market%20Lane" target="_blank" rel="noopener noreferrer">Get directions</a>
+              <a class="cta-secondary" href="mailto:hello@beanandbloom.coffee?subject=Catering%20Request">Ask about catering</a>
+            </div>
+          </div>
+
+          <div class="flex min-h-64 items-center justify-center p-4 sm:p-6" style="background: linear-gradient(135deg, var(--surface-soft), rgba(139, 79, 47, 0.18));">
+            <div class="w-full rounded-3xl border p-5 text-center" style="border-color: var(--border); background: rgba(255,255,255,0.5);">
+              <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full text-3xl" style="background: var(--btn-bg); color: var(--btn-text);">☕</div>
+              <p class="font-extrabold">Bean &amp; Bloom Coffee</p>
+              <p class="sub mt-1 text-sm">Fresh espresso · Warm pastries · Friendly tables</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- FAQ SECTION: Short answers to common coffee shop contact questions           -->
+  <!-- Features: Catering, seating, pets, pickup answers for quick customer help    -->
+  <!-- Mobile Padding: px-4 py-6 keeps FAQ text from touching viewport edges       -->
+  <!-- ============================================================================ -->
+  <section data-section="faq" class="px-4 py-6 sm:px-6 md:px-8">
+    <div class="page-shell">
+      <hr class="soft-divider mb-6" />
+
+      <p class="label mb-3">Quick answers</p>
+      <div class="grid gap-3">
+        <details class="section-card rounded-2xl p-4">
+          <summary class="cursor-pointer font-extrabold">Do you take catering orders?</summary>
+          <p class="sub mt-3 text-sm">
+            Yes. We offer coffee travelers, pastry boxes, and small event service. Please message us at least 48 hours ahead.
+          </p>
+        </details>
+
+        <details class="section-card rounded-2xl p-4">
+          <summary class="cursor-pointer font-extrabold">Is there seating?</summary>
+          <p class="sub mt-3 text-sm">
+            Yes. We have indoor tables, two window seats, and a few outdoor chairs when the weather is kind.
+          </p>
+        </details>
+
+        <details class="section-card rounded-2xl p-4">
+          <summary class="cursor-pointer font-extrabold">Are dogs welcome?</summary>
+          <p class="sub mt-3 text-sm">
+            Service animals are welcome inside. Friendly pups can join you on the patio.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================================ -->
+  <!-- FOOTER SECTION: Minimal coffee shop footer with contact details              -->
+  <!-- Features: Copyright, address, phone, email, consistent 2026 year             -->
+  <!-- Mobile Padding: px-4 py-8 provides safe spacing at the bottom of the page   -->
+  <!-- ============================================================================ -->
+  <footer data-section="footer" class="px-4 pb-10 pt-8 sm:px-6 md:px-8">
+    <div class="page-shell">
+      <hr class="soft-divider mb-6" />
+
+      <div class="flex flex-col gap-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+        <p class="sub">© 2026 Bean &amp; Bloom Coffee</p>
+        <div class="flex flex-col gap-2 sm:flex-row sm:gap-4">
+          <a href="tel:+15550148632" class="sub font-semibold no-underline hover:underline">(555) 014-8632</a>
+          <a href="mailto:hello@beanandbloom.coffee" class="sub font-semibold no-underline hover:underline">hello@beanandbloom.coffee</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  
+  <script src="script.js"></script>
+</body>
+</html>
